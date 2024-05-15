@@ -1,11 +1,18 @@
+import time
 def move(start_x, start_y, map):
     global map_array
-    if start_x + 1 < len(map) and map[start_x + 1][start_y] == 'С':
+
+    if start_x < 0 or start_x >= len(map) or start_y < 0 or start_y >= len(map[0]):
+        print(f"Черепашка достигла края карты в координатах ({start_x}, {start_y})")
+        return
+
+    if start_x + 1 <= len(map) and map[start_x + 1][start_y] == 'С':
         map_array[start_x + 1][start_y] = "Ч"
         map_array[start_x][start_y] = "С"
         for row in map_array:
             print(' '.join(row))
         print(' ')
+        time.sleep(0.5)
         return move(start_x + 1, start_y, map)
 
     if start_x - 1 >= 0 and map[start_x - 1][start_y] == 'С':
@@ -14,14 +21,16 @@ def move(start_x, start_y, map):
         for row in map_array:
             print(' '.join(row))
         print(' ')
+        time.sleep(0.5)
         return move(start_x - 1, start_y, map)
 
-    if start_y + 1 < len(map[0]) and map[start_x][start_y + 1] == 'С':
+    if start_y + 1 <= len(map[0]) and map[start_x][start_y + 1] == 'С':
         map_array[start_x][start_y + 1] = "Ч"
         map_array[start_x][start_y] = "С"
         for row in map_array:
             print(' '.join(row))
         print(' ')
+        time.sleep(0.5)
         return move(start_x, start_y + 1, map)
 
     if start_y - 1 >= 0 and map[start_x][start_y - 1] == 'С':
@@ -30,6 +39,7 @@ def move(start_x, start_y, map):
         for row in map_array:
             print(' '.join(row))
         print(' ')
+        time.sleep(0.5)
         return move(start_x, start_y - 1, map)
 
 height = int(input("Введите высоту карты: "))
@@ -49,4 +59,3 @@ for row in map_array:
     print(' '.join(row))
 print("Передвижение черепахи:")
 move(start_x, start_y, map_array)
-
